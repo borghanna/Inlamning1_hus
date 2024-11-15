@@ -6,6 +6,7 @@ body {
   font-family: "Zilla Slab", serif;
   font-weight: 300;
   font-style: normal;
+  height: fit-content;
 }
 
 .pStyle {
@@ -48,4 +49,34 @@ body {
 #pageContent {
   display: flex;
   justify-content: top;
+}
+
+#doorButtonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.blue-door {
+  background-color: #100d6c;
+  color: white;
+  padding: 10px, 20px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.white-door {
+  background-color: white;
+  color: #100d6c;
+  padding: 10px, 20px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin: 10px 0;
 }

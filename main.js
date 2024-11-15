@@ -1,21 +1,20 @@
 window.addEventListener("DOMContentLoaded", main);
 
+let inventory = [];
+
 function main() {
   loadingWelcomeScene();
 }
 function loadingWelcomeScene() {
   heading.innerHTML = "HUSET";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-    euismod, nibh maximus bibendum tempor, felis tellus pretium lectus,
-    nec porta nisi enim vel lectus. Vivamus nec leo et neque tempor
-    porttitor. Maecenas et mollis eros. Aenean mollis mi ante, non dictum
-    leo varius eget. Pellentesque id tortor consectetur, volutpat libero
-    in, pretium risus. Integer vitae viverra libero. Nunc dignissim
-    consequat pellentesque. Ut sit amet lacus sit amet nisi dapibus rutrum
-    tempus id mauris. Nam ornare diam ex, id consequat nunc pulvinar a.
-    Fusce tempus, mauris vitae rutrum dapibus, ex urna laoreet mauris,
-    molestie tincidunt ex nulla et massa.`;
+  firstSceneP.innerHTML = `Det är skymning nu, kanske en timme sedan solen gick ner.  Det var också ett bra tag sedan du passerade de senaste bostadshusen.  Nu omgärdas du av skogen, den ensliga lansvägen och det mer och mer påträngande mörkret. Du börjar närma dig ditt mål.
+
+  Rakt fram börjar du skymta siluetten  av ett stort, gammalt hus. Det är till stor del dolt av övervuxna träd som omsluter trädgården, men en bekant känsla i maggropen påkallar ett minne, kanske från en dröm. I någon form har du varit på denna platsen förut. 
+  
+  Du går med bestämda steg fram till den rostiga grinden, den knarrar när du öppnar den. Framför dig  uppenbaras en ödsligt sekelskiftesvilla med flagnande färg på fasaden. Huset rymde en gång liv och rörelse, men nu övergivet sedan länge och förfallet av tidens gång är påtagligt.
+  
+  Något finns i huset som du behöver och din misstanke säger att ytterdörren är olåst.`;
   topButton.onclick = loadingFirstScene;
   // leftButton.className = "btn hidden";
   topButton.classList.remove("hidden");
@@ -26,10 +25,11 @@ function loadingWelcomeScene() {
 
 //entré
 function loadingFirstScene() {
-  heading.innerHTML = "Hall 1";
+  heading.innerHTML = "Entré";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML =
-    "en lång korridor sträcker sig rakt fram och till höger";
+  firstSceneP.innerHTML = `Precis som du misstänkte var ytterdörren olåst.  Med lite ansträngning får du upp den tunga dörren som troligtvis inte använts på åratal, trotts att det bara är att gå rätt in.
+
+  Du möts av lukten av damm och mögel och fipplar med lampan på mobilen för att kunna tränga igenom mörkret. När du lyser upp rummet uppenbaras en korridor som sträcker sig framåt och en annan till höger. `;
   topButton.onclick = loadingSecondScene; //hall rakt fram
   rightButton.onclick = loadingScene6; //hall till höger
   bottomButton.onclick = loadingWelcomeScene; //tillbaks till start
@@ -54,20 +54,56 @@ function loadingSecondScene() {
   rightButton.classList.add("hidden");
 }
 
-//TODO istället för vänsterknapp, lägg till två val (en till badrum en till skrubb)
 function loadingScene3() {
   heading.innerHTML = "Vardagsrum";
   const firstSceneP = document.getElementById("mainText");
   firstSceneP.innerHTML =
-    "här finns två dörrar till vänster, vilken väljer du?";
-  var buttonBlueDoor = document.createElement("BUTTON");
-  bottomButton.onclick = loadingSecondScene; //tillbaks till korridor
-  //leftButton.onclick = loadingScene4; // gör om till knappval, badrum TODO
-  //topButton.onclick = loadingScene5; //gör om till knappval, källarskrubb TODO
-  topButton.classList.remove("hidden");
-  bottomButton.classList.remove("hidden");
+    "Här finns två dörrar till vänster, vilken väljer du?";
+
+  removeDoorButtons();
+
+  let doorButtonContainer = document.getElementById("doorButtonContainer");
+  if (!doorButtonContainer) {
+    doorButtonContainer = document.createElement("div");
+    doorButtonContainer.id = "doorButtonContainer";
+    const leftGridItem = document.querySelector(".griditem:nth-child(4)");
+    leftGridItem.appendChild(doorButtonContainer);
+  }
+
+  const blueDoorButton = document.createElement("button");
+  blueDoorButton.innerText = "Blå dörr";
+  blueDoorButton.id = "blueDoorButton";
+  blueDoorButton.classList.add("blue-door");
+  blueDoorButton.onclick = () => {
+    removeDoorButtons();
+    loadingScene5();
+  };
+  doorButtonContainer.appendChild(blueDoorButton);
+
+  const whiteDoorButton = document.createElement("button");
+  whiteDoorButton.innerText = "Vit dörr";
+  whiteDoorButton.id = "whiteDoorButton";
+  whiteDoorButton.classList.add("white-door");
+  whiteDoorButton.onclick = () => {
+    removeDoorButtons();
+    loadingScene4();
+  };
+  doorButtonContainer.appendChild(whiteDoorButton);
+
+  topButton.classList.add("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.add("hidden");
+
+  bottomButton.onclick = () => {
+    removeDoorButtons();
+    loadingSecondScene();
+  };
+  bottomButton.classList.remove("hidden");
+}
+
+function removeDoorButtons() {
+  const doorButtonContainer = document.getElementById("doorButtonContainer");
+  if (doorButtonContainer) doorButtonContainer.remove();
 }
 
 function loadingScene4() {
@@ -88,14 +124,18 @@ function loadingScene5() {
   firstSceneP.innerHTML = "lucka till källare";
   bottomButton.onclick = loadingScene3; //vardagsrum
   topButton.onclick = loadingScene9; //källare
+  topButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
+  leftButton.classList.add("hidden");
+  bottomButton.classList.remove("hidden");
 }
 
 function loadingScene6() {
-  heading.innerHTML = "Korridor höger";
+  heading.innerHTML = "Korridor";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML =
-    "Här tar korridoren slut. en dörr till vänster står halvöppen";
+  firstSceneP.innerHTML = `Golvplankorna knarrar när du tar dig i riktning mot korridorens ände. 
+  Är detta rätt väg? Du försöker minnas. 
+  när di tagit dig hela vägen finner du en stängd dörr på vänstersidan.`;
   leftButton.onclick = loadingScene7; //kök
   bottomButton.onclick = loadingFirstScene; //tillbaks till entré
   topButton.classList.add("hidden");
@@ -106,7 +146,7 @@ function loadingScene6() {
 function loadingScene7() {
   heading.innerHTML = "Kök";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML = "trappa? en till källardörr?";
+  firstSceneP.innerHTML = "trappa?";
   bottomButton.onclick = loadingScene6;
   topButton.classList.add("hidden");
   bottomButton.classList.remove("hidden");
