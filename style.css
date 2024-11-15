@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 20px;
-  background-color: #cccbe8;
+  background-color: #cfd1e4;
   color: #7c0000;
   font-family: "Zilla Slab", serif;
   font-weight: 300;
@@ -17,12 +17,16 @@ body {
 }
 
 .btn {
-  background-color: #cccbe8;
+  background-color: #cfd1e4;
   border: none;
 }
 
 .fa-solid {
   color: #7c0000;
+}
+
+.fa-solid:hover {
+  color: #ff8000;
 }
 
 .gridcontainer {
@@ -39,4 +43,9 @@ body {
   justify-content: center;
   align-items: center;
   padding: 10%;
+}
+
+#pageContent {
+  display: flex;
+  justify-content: top;
 }
