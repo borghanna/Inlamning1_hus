@@ -5,6 +5,7 @@ let inventory = [""];
 function main() {
   loadingWelcomeScene();
 }
+
 function loadingWelcomeScene() {
   heading.innerHTML = "HUSET";
   const firstSceneP = document.getElementById("mainText");
@@ -21,6 +22,7 @@ function loadingWelcomeScene() {
   leftButton.classList.add("hidden"); //remove när de ska visas
   rightButton.classList.add("hidden"); //remove när de ska visas
   bottomButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 //entré
@@ -37,6 +39,7 @@ function loadingFirstScene() {
   rightButton.classList.remove("hidden");
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 //hall rakt fram
@@ -52,6 +55,7 @@ function loadingSecondScene() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene3() {
@@ -87,7 +91,6 @@ function loadingScene3() {
       alert("Dörren är låst. Du behöver en nyckel.");
     }
   };
-  doorButtonContainer.appendChild(blueDoorButton);
 
   // Skapa vit dörrknapp
   const whiteDoorButton = document.createElement("button");
@@ -139,6 +142,7 @@ function loadingScene4() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.remove("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene5() {
@@ -151,6 +155,7 @@ function loadingScene5() {
   rightButton.classList.add("hidden");
   leftButton.classList.add("hidden");
   bottomButton.classList.remove("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene6() {
@@ -165,6 +170,7 @@ function loadingScene6() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene7() {
@@ -176,10 +182,11 @@ function loadingScene7() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene8() {
-  heading.innerHTML = "garderob";
+  heading.innerHTML = "Garderob";
   const firstSceneP = document.getElementById("mainText");
   firstSceneP.innerHTML = "här finns nyckeln";
 
@@ -271,4 +278,5 @@ function loadingScene10() {
   bottomButton.classList.add("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
