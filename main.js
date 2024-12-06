@@ -2,8 +2,39 @@ window.addEventListener("DOMContentLoaded", main);
 
 let inventory = [""];
 
+function updateInventoryIcons() {
+  const inventoryIconsDiv = document.getElementById("inventoryIcons");
+
+  // Rensa tidigare ikoner
+  inventoryIconsDiv.innerHTML = "";
+
+  // Lägg till nyckel 1 om den finns i inventory
+  if (inventory.includes("key")) {
+    const keyIcon = document.createElement("i");
+    keyIcon.classList.add("fa-solid", "fa-key", "fa-2x");
+    keyIcon.style.color = "#100d6c";
+    inventoryIconsDiv.appendChild(keyIcon);
+  }
+
+  // Lägg till nyckel 2 om den finns i inventory
+  if (inventory.includes("key2")) {
+    const key2Icon = document.createElement("i");
+    key2Icon.classList.add("fa-solid", "fa-key", "fa-2x");
+    inventoryIconsDiv.appendChild(key2Icon);
+  }
+
+  // Lägg till väska om den finns i inventory
+  if (inventory.includes("bag")) {
+    const bagIcon = document.createElement("i");
+    bagIcon.classList.add("fa-solid", "fa-sack-dollar", "fa-2x");
+    bagIcon.style.color = "brown";
+    inventoryIconsDiv.appendChild(bagIcon);
+  }
+}
+
 function main() {
   loadingWelcomeScene();
+  updateInventoryIcons();
 }
 
 function loadingWelcomeScene() {
@@ -196,6 +227,7 @@ function loadingScene8() {
   keyButton.onclick = function () {
     inventory.push("key");
     alert("Du har hittat en nyckel!");
+    updateInventoryIcons();
     keyButton.remove();
   };
 
@@ -237,7 +269,15 @@ function loadingScene9() {
   rightButton.onclick = function () {
     inventory.push("key2");
     alert("Du hittar en ny nyckel som kan öppna nästa dörr.");
+    updateInventoryIcons();
   };
+
+  leftButton.onclick = function () {
+    inventory.push("bag");
+    alert("Du hittar en väska och lägger den i din packning.");
+    updateInventoryIcons();
+  };
+
   bottomButton.onclick = function () {
     alert("Åh nej, luckan är låst. Du kommer inte tillbaka.");
   };
