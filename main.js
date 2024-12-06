@@ -1,10 +1,19 @@
 window.addEventListener("DOMContentLoaded", main);
 
-let inventory = [];
+let inventory = ["BlueKey"];
+
+function foundItems(item) {
+  return inventory.includes(item);
+}
+
+function hasItem(item) {
+  return inventory.includes(item); // Kontrollera om item finns i inventory
+}
 
 function main() {
   loadingWelcomeScene();
 }
+
 function loadingWelcomeScene() {
   heading.innerHTML = "HUSET";
   const firstSceneP = document.getElementById("mainText");
@@ -21,6 +30,7 @@ function loadingWelcomeScene() {
   leftButton.classList.add("hidden"); //remove när de ska visas
   rightButton.classList.add("hidden"); //remove när de ska visas
   bottomButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 //entré
@@ -37,6 +47,7 @@ function loadingFirstScene() {
   rightButton.classList.remove("hidden");
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 //hall rakt fram
@@ -52,6 +63,7 @@ function loadingSecondScene() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene3() {
@@ -74,36 +86,43 @@ function loadingScene3() {
   blueDoorButton.innerText = "Blå dörr";
   blueDoorButton.id = "blueDoorButton";
   blueDoorButton.classList.add("blue-door");
-  blueDoorButton.onclick = () => {
-    removeDoorButtons();
-    loadingScene5();
+  blueDoorButton.onclick = function () {
+    blueDoorButton.onclick = () => {
+      if (hasItem("blueKey")) {
+        removeDoorButtons();
+        loadingScene5();
+      } else {
+        alert("Dörren är låst. Du behöver en nyckel för att öppna den.");
+      }
+    };
+    doorButtonContainer.appendChild(blueDoorButton);
+
+    const whiteDoorButton = document.createElement("button");
+    whiteDoorButton.innerText = "Vit dörr";
+    whiteDoorButton.id = "whiteDoorButton";
+    whiteDoorButton.classList.add("white-door");
+    whiteDoorButton.onclick = () => {
+      removeDoorButtons();
+      loadingScene4();
+    };
+    doorButtonContainer.appendChild(whiteDoorButton);
+
+    topButton.classList.add("hidden");
+    leftButton.classList.add("hidden");
+    rightButton.classList.add("hidden");
+    keyButton.classList.add("hidden");
+
+    bottomButton.onclick = () => {
+      removeDoorButtons();
+      loadingSecondScene();
+    };
+    bottomButton.classList.remove("hidden");
   };
-  doorButtonContainer.appendChild(blueDoorButton);
 
-  const whiteDoorButton = document.createElement("button");
-  whiteDoorButton.innerText = "Vit dörr";
-  whiteDoorButton.id = "whiteDoorButton";
-  whiteDoorButton.classList.add("white-door");
-  whiteDoorButton.onclick = () => {
-    removeDoorButtons();
-    loadingScene4();
-  };
-  doorButtonContainer.appendChild(whiteDoorButton);
-
-  topButton.classList.add("hidden");
-  leftButton.classList.add("hidden");
-  rightButton.classList.add("hidden");
-
-  bottomButton.onclick = () => {
-    removeDoorButtons();
-    loadingSecondScene();
-  };
-  bottomButton.classList.remove("hidden");
-}
-
-function removeDoorButtons() {
-  const doorButtonContainer = document.getElementById("doorButtonContainer");
-  if (doorButtonContainer) doorButtonContainer.remove();
+  function removeDoorButtons() {
+    const doorButtonContainer = document.getElementById("doorButtonContainer");
+    if (doorButtonContainer) doorButtonContainer.remove();
+  }
 }
 
 function loadingScene4() {
@@ -116,6 +135,7 @@ function loadingScene4() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.remove("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene5() {
@@ -128,6 +148,7 @@ function loadingScene5() {
   rightButton.classList.add("hidden");
   leftButton.classList.add("hidden");
   bottomButton.classList.remove("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene6() {
@@ -142,6 +163,7 @@ function loadingScene6() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 function loadingScene7() {
   heading.innerHTML = "Kök";
@@ -152,17 +174,32 @@ function loadingScene7() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene8() {
-  heading.innerHTML = "garderob";
+  heading.innerHTML = "Garderob";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML = "här finns nyckeln";
+  firstSceneP.innerHTML = "Du hittar en blå nyckel!";
+
+  let keyButton = document.createElement("button");
+  keyButton.innerText = "Ta nyckeln";
+  keyButton.onclick = () => {
+    if (!hasItem("blueKey")) {
+      inventory.push("blueKey");
+      alert("Du tog nyckeln!");
+    } else {
+      alert("Du har redan tagit nyckeln.");
+    }
+  };
+  document.querySelector("#pageContent").appendChild(keyButton);
+
   bottomButton.onclick = loadingSecondScene;
   topButton.classList.add("hidden");
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.remove("hidden");
 }
 
 function loadingScene9() {
@@ -175,6 +212,7 @@ function loadingScene9() {
   bottomButton.classList.add("hidden");
   leftButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }
 
 function loadingScene10() {
@@ -186,4 +224,5 @@ function loadingScene10() {
   bottomButton.classList.add("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.add("hidden");
+  keyButton.classList.add("hidden");
 }

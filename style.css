@@ -1,12 +1,11 @@
 body {
   margin: 0;
-  padding: 20px;
   background-color: #cfd1e4;
   color: #7c0000;
   font-family: "Zilla Slab", serif;
   font-weight: 300;
   font-style: normal;
-  height: fit-content;
+  height: 100svh;
 }
 
 .pStyle {
@@ -32,10 +31,10 @@ body {
 
 .gridcontainer {
   display: grid;
-  grid-template-columns: 10% 80% 10%;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-columns: 20% 60% 20%;
+  grid-template-rows: 20% 60% 20%;
   gap: 0;
-  padding: 0;
+  height: 100svh;
 }
 
 .griditem {
@@ -43,7 +42,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10%;
 }
 
 #pageContent {
