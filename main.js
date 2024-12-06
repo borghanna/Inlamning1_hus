@@ -5,10 +5,8 @@ let inventory = [""];
 function updateInventoryIcons() {
   const inventoryIconsDiv = document.getElementById("inventoryIcons");
 
-  // Rensa tidigare ikoner
   inventoryIconsDiv.innerHTML = "";
 
-  // Lägg till nyckel 1 om den finns i inventory
   if (inventory.includes("key")) {
     const keyIcon = document.createElement("i");
     keyIcon.classList.add("fa-solid", "fa-key", "fa-2x");
@@ -16,18 +14,17 @@ function updateInventoryIcons() {
     inventoryIconsDiv.appendChild(keyIcon);
   }
 
-  // Lägg till nyckel 2 om den finns i inventory
   if (inventory.includes("key2")) {
     const key2Icon = document.createElement("i");
     key2Icon.classList.add("fa-solid", "fa-key", "fa-2x");
+    key2Icon.style.color = "#545454";
     inventoryIconsDiv.appendChild(key2Icon);
   }
 
-  // Lägg till väska om den finns i inventory
   if (inventory.includes("bag")) {
     const bagIcon = document.createElement("i");
     bagIcon.classList.add("fa-solid", "fa-sack-dollar", "fa-2x");
-    bagIcon.style.color = "brown";
+    bagIcon.style.color = "#8E5800";
     inventoryIconsDiv.appendChild(bagIcon);
   }
 }
@@ -48,7 +45,6 @@ function loadingWelcomeScene() {
   
   Något finns i huset som du behöver och din misstanke säger att ytterdörren är olåst.`;
   topButton.onclick = loadingFirstScene;
-  // leftButton.className = "btn hidden";
   topButton.classList.remove("hidden");
   leftButton.classList.add("hidden"); //remove när de ska visas
   rightButton.classList.add("hidden"); //remove när de ska visas
