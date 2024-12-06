@@ -31,7 +31,6 @@ function updateInventoryIcons() {
 
 function main() {
   loadingWelcomeScene();
-  updateInventoryIcons();
 }
 
 function loadingWelcomeScene() {
@@ -223,7 +222,6 @@ function loadingScene8() {
   keyButton.onclick = function () {
     inventory.push("key");
     alert("Du har hittat en nyckel!");
-    updateInventoryIcons();
     keyButton.remove();
   };
 
@@ -265,15 +263,7 @@ function loadingScene9() {
   rightButton.onclick = function () {
     inventory.push("key2");
     alert("Du hittar en ny nyckel som kan öppna nästa dörr.");
-    updateInventoryIcons();
   };
-
-  leftButton.onclick = function () {
-    inventory.push("bag");
-    alert("Du hittar en väska och lägger den i din packning.");
-    updateInventoryIcons();
-  };
-
   bottomButton.onclick = function () {
     alert("Åh nej, luckan är låst. Du kommer inte tillbaka.");
   };
