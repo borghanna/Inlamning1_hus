@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", main);
 
-let inventory = [];
+let inventory = [""];
 
 function main() {
   loadingWelcomeScene();
@@ -60,8 +60,10 @@ function loadingScene3() {
   firstSceneP.innerHTML =
     "Här finns två dörrar till vänster, vilken väljer du?";
 
+  // Kontrollera om knappcontainern finns och ta bort endast om den finns
   removeDoorButtons();
 
+  // Skapa container för dörrknappar om den inte redan finns
   let doorButtonContainer = document.getElementById("doorButtonContainer");
   if (!doorButtonContainer) {
     doorButtonContainer = document.createElement("div");
@@ -70,16 +72,24 @@ function loadingScene3() {
     leftGridItem.appendChild(doorButtonContainer);
   }
 
+  // Skapa blå dörrknapp
   const blueDoorButton = document.createElement("button");
   blueDoorButton.innerText = "Blå dörr";
   blueDoorButton.id = "blueDoorButton";
   blueDoorButton.classList.add("blue-door");
-  blueDoorButton.onclick = () => {
-    removeDoorButtons();
-    loadingScene5();
+
+  // Kontroll för nyckel
+  blueDoorButton.onclick = function () {
+    if (inventory.includes("key")) {
+      removeDoorButtons();
+      loadingScene5();
+    } else {
+      alert("Dörren är låst. Du behöver en nyckel.");
+    }
   };
   doorButtonContainer.appendChild(blueDoorButton);
 
+  // Skapa vit dörrknapp
   const whiteDoorButton = document.createElement("button");
   whiteDoorButton.innerText = "Vit dörr";
   whiteDoorButton.id = "whiteDoorButton";
@@ -90,17 +100,20 @@ function loadingScene3() {
   };
   doorButtonContainer.appendChild(whiteDoorButton);
 
+  // Justera knappsynlighet
   topButton.classList.add("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.add("hidden");
 
-  bottomButton.onclick = () => {
+  // Back-knapp
+  bottomButton.onclick = function () {
     removeDoorButtons();
     loadingSecondScene();
   };
   bottomButton.classList.remove("hidden");
 }
 
+// Ta bort knappcontainern
 function removeDoorButtons() {
   const doorButtonContainer = document.getElementById("doorButtonContainer");
   if (doorButtonContainer) doorButtonContainer.remove();
@@ -109,8 +122,18 @@ function removeDoorButtons() {
 function loadingScene4() {
   heading.innerHTML = "Badrum";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML = "badrum text";
-  rightButton.onclick = loadingScene5; //Denna ska vara låst
+  firstSceneP.innerHTML =
+    "Det verkar finnas en dörr till höger, men den är låst.";
+
+  // Lås upp scen 5 om nyckeln finns
+  rightButton.onclick = function () {
+    if (inventory.includes("key")) {
+      loadingScene5();
+    } else {
+      alert("Dörren är låst. Du behöver en nyckel för att öppna den.");
+    }
+  };
+
   bottomButton.onclick = loadingScene3;
   topButton.classList.add("hidden");
   bottomButton.classList.remove("hidden");
@@ -143,6 +166,7 @@ function loadingScene6() {
   leftButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
 }
+
 function loadingScene7() {
   heading.innerHTML = "Kök";
   const firstSceneP = document.getElementById("mainText");
@@ -158,11 +182,38 @@ function loadingScene8() {
   heading.innerHTML = "garderob";
   const firstSceneP = document.getElementById("mainText");
   firstSceneP.innerHTML = "här finns nyckeln";
-  bottomButton.onclick = loadingSecondScene;
+
+  removeKeyButton();
+
+  let keyButton = document.createElement("button");
+  keyButton.id = "keyButton";
+  keyButton.innerText = "Ta upp nyckel";
+  keyButton.classList.add("blue-door");
+
+  const pageContent = document.getElementById("pageContent");
+  pageContent.appendChild(keyButton);
+
+  // När knappen klickas, lägg till nyckeln till inventory och ta bort knappen
+  keyButton.onclick = function () {
+    inventory.push("key");
+    alert("Du har hittat en nyckel!");
+    keyButton.remove();
+  };
+
+  bottomButton.onclick = function () {
+    loadingSecondScene();
+    removeKeyButton();
+  };
+
   topButton.classList.add("hidden");
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.add("hidden");
+
+  function removeKeyButton() {
+    const keyButton = document.getElementById("keyButton");
+    if (keyButton) keyButton.remove();
+  }
 }
 
 function loadingScene9() {
@@ -170,11 +221,45 @@ function loadingScene9() {
   const firstSceneP = document.getElementById("mainText");
   firstSceneP.innerHTML = "text för källare";
   leftButton.onclick = loadingScene10;
-  bottomButton.onclick = loadingScene8;
+  bottomButton.onclick = function () {
+    alert("Åh nej, luckan är låst. Du kommer inte tillbaka.");
+  };
   topButton.classList.remove("hidden");
-  bottomButton.classList.add("hidden");
+  bottomButton.classList.remove("hidden");
   leftButton.classList.remove("hidden");
-  rightButton.classList.add("hidden");
+  rightButton.classList.remove("hidden");
+}
+
+function loadingScene9() {
+  heading.innerHTML = "Källare";
+  const firstSceneP = document.getElementById("mainText");
+  firstSceneP.innerHTML = "text för källare";
+
+  // När högerknappen klickas ska nyckeln läggas till i inventory
+  rightButton.onclick = function () {
+    inventory.push("key2"); // Lägg till nyckel 2 i inventory
+    alert("Du hittar en ny nyckel som kan öppna nästa dörr.");
+  };
+  bottomButton.onclick = function () {
+    alert("Åh nej, luckan är låst. Du kommer inte tillbaka.");
+  };
+  // När topknappen klickas ska den kolla om nyckeln finns i inventory
+  topButton.onclick = function () {
+    if (inventory.includes("key2")) {
+      loadingScene10(); // Ladda scen 10 om nyckeln finns
+    } else {
+      alert("Dörren är låst, du behöver en nyckel för att öppna den.");
+    }
+
+    bottomButton.onclick = () => {
+      alert("Åh nej, luckan är låst. Du kommer inte tillbaka.");
+    };
+  };
+
+  bottomButton.classList.remove("hidden");
+  topButton.classList.remove("hidden");
+  leftButton.classList.remove("hidden");
+  rightButton.classList.remove("hidden");
 }
 
 function loadingScene10() {
