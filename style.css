@@ -1,7 +1,7 @@
 body {
   margin: 0;
   background-color: #cfd1e4;
-  color: #7c0000;
+  color: ;
   font-family: "Zilla Slab", serif;
   font-weight: 300;
   font-style: normal;
@@ -10,6 +10,7 @@ body {
 
 .pStyle {
   font-size: 20px;
+  margin-bottom: 100px;
 }
 
 .hidden {
