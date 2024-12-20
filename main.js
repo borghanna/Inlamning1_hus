@@ -48,7 +48,6 @@ function loadingWelcomeScene() {
   leftButton.classList.add("hidden"); //remove när de ska visas
   rightButton.classList.add("hidden"); //remove när de ska visas
   bottomButton.classList.add("hidden");
-  keyButton.classList.add("hidden");
 }
 
 //entré
@@ -61,11 +60,10 @@ function loadingFirstScene() {
   topButton.onclick = loadingSecondScene; //hall rakt fram
   rightButton.onclick = loadingScene6; //hall till höger
   bottomButton.onclick = loadingWelcomeScene; //tillbaks till start
-  bottomButton.classList.remove("hidden");
+  topButton.classList.remove("hidden");
   rightButton.classList.remove("hidden");
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
-  keyButton.classList.add("hidden");
 }
 
 //hall rakt fram
@@ -73,7 +71,7 @@ function loadingSecondScene() {
   heading.innerHTML = "Korridor fram";
   const firstSceneP = document.getElementById("mainText");
   firstSceneP.innerHTML =
-    "rakt fram finns en liten dörr och till vänster en ingång till ett stort rum ";
+    "rakt fram finns en liten dörr och till vänster en ingång till ett stort rum. ";
   leftButton.onclick = loadingScene3; //vardagsrum
   topButton.onclick = loadingScene8; //garderob
   bottomButton.onclick = loadingFirstScene;
@@ -81,14 +79,13 @@ function loadingSecondScene() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
-  keyButton.classList.add("hidden");
 }
 
 function loadingScene3() {
   heading.innerHTML = "Vardagsrum";
   const firstSceneP = document.getElementById("mainText");
   firstSceneP.innerHTML =
-    "Här finns två dörrar till vänster, vilken väljer du?";
+    "I vardagsrummet ser du att de gamla möblerna övertäckta av tyg. Rakt fram enf öppen spis där askan spridits ut över golvet. I askan finns fotavtryck, någon har varit här nyligen. Avtryckens riktning är mot vänstersidan av rummet, där du upptäcker två dörrar.";
 
   removeDoorButtons();
 
@@ -146,7 +143,7 @@ function loadingScene4() {
   heading.innerHTML = "Badrum";
   const firstSceneP = document.getElementById("mainText");
   firstSceneP.innerHTML =
-    "Det verkar finnas en dörr till höger, men den är låst.";
+    "Ett badrum, en krossad spegel, rost och mögel i handfatet. Till höger finns ännu en dörr.";
 
   rightButton.onclick = function () {
     if (inventory.includes("key")) {
@@ -161,20 +158,19 @@ function loadingScene4() {
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.remove("hidden");
-  keyButton.classList.add("hidden");
 }
 
 function loadingScene5() {
   heading.innerHTML = "Skrubb";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML = "lucka till källare";
+  firstSceneP.innerHTML =
+    "Ett klaustrofobiskt litet rum som först till synes är en återvändsgränd. Sen upptäcker du en lucka i golvet.";
   bottomButton.onclick = loadingScene3; //vardagsrum
   topButton.onclick = loadingScene9; //källare
   topButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
   leftButton.classList.add("hidden");
   bottomButton.classList.remove("hidden");
-  keyButton.classList.add("hidden");
 }
 
 function loadingScene6() {
@@ -182,39 +178,39 @@ function loadingScene6() {
   const firstSceneP = document.getElementById("mainText");
   firstSceneP.innerHTML = `Golvplankorna knarrar när du tar dig i riktning mot korridorens ände. 
   Är detta rätt väg? Du försöker minnas. 
-  när di tagit dig hela vägen finner du en stängd dörr på vänstersidan.`;
+  när dig tagit dig hela vägen finner du en stängd dörr på vänstersidan.`;
   leftButton.onclick = loadingScene7; //kök
   bottomButton.onclick = loadingFirstScene; //tillbaks till entré
   topButton.classList.add("hidden");
   bottomButton.classList.remove("hidden");
   leftButton.classList.remove("hidden");
   rightButton.classList.add("hidden");
-  keyButton.classList.add("hidden");
 }
 
 function loadingScene7() {
   heading.innerHTML = "Kök";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML = "trappa?";
+  firstSceneP.innerHTML =
+    "I köket möts du av ett meddelande på väggen. <br> Gå tillbaka! <br> I röda bokstäver.";
   bottomButton.onclick = loadingScene6;
   topButton.classList.add("hidden");
   bottomButton.classList.remove("hidden");
   leftButton.classList.add("hidden");
   rightButton.classList.add("hidden");
-  keyButton.classList.add("hidden");
 }
 
 function loadingScene8() {
   heading.innerHTML = "Garderob";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML = "här finns nyckeln";
+  firstSceneP.innerHTML =
+    "En garderob fylld med lådor och bråte. du öppnar en en låda och hittar en nyckel";
 
   removeKeyButton();
 
   let keyButton = document.createElement("button");
   keyButton.id = "keyButton";
   keyButton.innerText = "Ta upp nyckel";
-  keyButton.classList.add("blue-door");
+  keyButton.classList.add("blue-key");
 
   const pageContent = document.getElementById("pageContent");
   pageContent.appendChild(keyButton);
@@ -223,6 +219,7 @@ function loadingScene8() {
     inventory.push("key");
     alert("Du har hittat en nyckel!");
     keyButton.remove();
+    updateInventoryIcons();
   };
 
   bottomButton.onclick = function () {
@@ -258,21 +255,35 @@ function loadingScene9() {
 function loadingScene9() {
   heading.innerHTML = "Källare";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML = "text för källare";
+  firstSceneP.innerHTML =
+    "luckan ledde ner till en källare. det är kolmörkt och mobilbatteriet dör plötsligt. du famlar runt i mörkret.";
+
+  leftButton.onclick = function () {
+    inventory.push("bag");
+    alert("Du hittar en väska.");
+    updateInventoryIcons();
+  };
 
   rightButton.onclick = function () {
     inventory.push("key2");
-    alert("Du hittar en ny nyckel som kan öppna nästa dörr.");
+    alert(
+      "händerna möter en vägg. du känner dig fram hittar en krok där det hänger ännu en nyckel."
+    );
+    updateInventoryIcons();
   };
+
   bottomButton.onclick = function () {
-    alert("Åh nej, luckan är låst. Du kommer inte tillbaka.");
+    alert("Åh nej, luckan är låst! Du kommer inte tillbaka.");
   };
 
   topButton.onclick = function () {
     if (inventory.includes("key2")) {
       loadingScene10();
     } else {
-      alert("Dörren är låst, du behöver en nyckel för att öppna den.");
+      alert(
+        "Du hittar en dörr, men den är låst. du testar den förra nyckeln men den fungerar inte."
+      );
+      updateInventoryIcons();
     }
   };
 
@@ -285,7 +296,8 @@ function loadingScene9() {
 function loadingScene10() {
   heading.innerHTML = "Väg tillbaks till start";
   const firstSceneP = document.getElementById("mainText");
-  firstSceneP.innerHTML = "text";
+  firstSceneP.innerHTML =
+    "ute i gatlyktans ljus, en grusväg som leder till framsidan av huset.";
   topButton.classList.remove("hidden");
   bottomButton.classList.add("hidden");
   leftButton.classList.add("hidden");

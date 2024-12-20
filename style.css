@@ -1,11 +1,20 @@
+.zilla-slab-light {
+  font-family: "Zilla Slab", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   background-color: #cfd1e4;
   color: #7c0000;
-  font-family: "Zilla Slab", serif;
-  font-weight: 300;
   font-style: normal;
   height: 100svh;
+  font-family: "Zilla Slab", serif;
+}
+
+h1 {
+  font-weight: bold;
 }
 
 .pStyle {
@@ -19,13 +28,12 @@ body {
 .btn {
   background-color: #cfd1e4;
   border: none;
-}
-
-.fa-solid {
+  padding: 5px;
   color: #7c0000;
+  cursor: pointer;
 }
 
-.fa-solid:hover {
+.btn:hover {
   color: #ff8000;
 }
 
@@ -60,21 +68,35 @@ body {
 .blue-door {
   background-color: #100d6c;
   color: white;
-  padding: 10px, 20px;
+  padding: 10px;
   font-size: 20px;
-  font-weight: bold;
   border: none;
   border-radius: 5px;
   margin: 10px 0;
+  cursor: pointer;
+  font-family: "Zilla Slab", serif;
 }
 
 .white-door {
   background-color: white;
   color: #100d6c;
-  padding: 10px, 20px;
+  padding: 10px;
   font-size: 20px;
-  font-weight: bold;
+  font-family: "Zilla Slab", serif;
   border: none;
   border-radius: 5px;
   margin: 10px 0;
+  cursor: pointer;
+}
+
+.blue-key {
+  background-color: #7c0000;
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+  font-family: "Zilla Slab", serif;
+  border: none;
+  border-radius: 5px;
+  margin: 10px 0;
+  cursor: pointer;
 }
